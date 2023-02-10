@@ -46,9 +46,10 @@ main {
 .icon a {
   font-size: 5rem;
   margin: 10px;
+  color: white;
 }
 .icon a:hover {
-  background-color: #ddd;
+  /* background-color: #ddd; */
   color: black;
 }
 
