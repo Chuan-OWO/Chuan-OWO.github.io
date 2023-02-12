@@ -12,7 +12,7 @@ body {
   width: 100%;
   min-height: 10vh;
   display: flex;
-  background: #000;
+  background: rgb(115, 149, 111);
 }
 .navbar a {
   color: white;
@@ -121,6 +121,7 @@ footer .icon {
   display: flex;
   text-align: center;
   justify-content: center;
+  padding: 1em;
 }
 footer .icon a {
   font-size: 2rem;
@@ -131,7 +132,7 @@ footer .icon a:hover {
 }
 footer h5 {
   text-align: center;
-  padding-bottom: 1em;
+  padding-bottom: 2em;
 }
 
 /*# sourceMappingURL=main.css.map */
