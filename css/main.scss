@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 body{ 
     font-family: Arial, Helvetica, sans-serif;
      
@@ -57,7 +61,7 @@ main{
     }
 
 }
-
+// main icon
 .icon{
     display: flex;
     text-align: center;
@@ -74,8 +78,157 @@ main{
       }
 }
 
-//banner
+section{
+    width: 100%;
+    height: 100vh;
+    // background-color: #ccc;
+    // border-bottom: 1px solid #000;
+    // box-shadow: 0 1px 6px 5px;
+    // box-shadow: 5px 1px 6px 5px;
 
+    h2:hover {
+        // background-color: #ddd;
+        color: black;
+      }
+}
+
+
+//team
+.team{
+    width: 100%;
+    max-width: 1200px;
+    // height: 100%;
+    margin: auto;
+
+    h1{
+        font-size: 3rem;
+        text-align: center;
+        color: #73956F;
+        margin:5rem;
+    }
+
+    .container{
+        display: flex;
+        max-height: 500px;
+        // background: #aaa;
+        justify-content:center;
+        align-items:center;
+        iframe{
+            width: 564px;
+            height: 358px;
+            border-radius: 20px;
+        }
+
+    article{
+        max-width: 564px;
+        height: 364px;
+
+        padding: 1rem;
+        margin-left:1rem ;
+        color: #73956F;
+        line-height: 1.8;
+        background: #BACDB5;
+            
+        justify-content:space-between;
+
+        // border: 1px solid #f00;
+        border-radius: 20px;
+        }
+    }
+    a{
+        font-size: 3em;
+        text-decoration: none; 
+        text-align: center;
+
+        color: #73956F;
+        display: block;
+        margin:5rem;
+    }
+
+    a:hover {
+        // background-color: #ddd;
+        color: black;
+      }
+}
+
+//personal
+.personal{
+    width: 100%;
+    max-width: 1200px;
+    // height: 100%;
+    margin: auto;
+    
+    h1{
+        font-size: 3rem;
+        text-align: center;
+        color: #73956F;
+        margin:5rem;
+    }
+
+    .container{
+        display: flex;
+        max-height: 500px;
+        // background: #aaa;
+        justify-content:center;
+        align-items:center;
+        // img{
+        //     width: 564px;
+        //     height: 358px;
+        //     border-radius: 20px;
+        // }
+        
+        .shopingImg{
+            width: 564px;
+            height: 358px;
+            
+            border-radius: 20px;
+            background-image: url(../img/shoping.JPG);
+            background-repeat:no-repeat;
+            background-size:100%;
+
+            // border: 1px solid #73956F;
+        }
+
+        .clockImg{
+            width: 564px;
+            height: 358px;
+            border-radius: 20px;
+            background-image: url(../img/clock.JPG);
+            background-repeat:no-repeat;
+            background-size:contain;
+            background-position:center;
+        }
+
+    article{
+        max-width: 564px;
+        height: 364px;
+
+        padding: 1rem;
+        margin-left:1rem ;
+        color: #73956F;
+        line-height: 1.8;
+        background: #BACDB5;
+            
+        justify-content:space-between;
+
+        // border: 1px solid #f00;
+        border-radius: 20px;
+        }
+    }
+    h2{
+        font-size: 3em;
+        text-align: center;
+        color: #73956F;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+    }
+}
+
+
+
+
+
+//banner
 .banner{
     width: 100%;
     height: 100vh;
@@ -85,16 +238,17 @@ main{
             center / 100% 100%,
             #ccc right center / auto
             100%;
+    margin-top: 5rem;
 }
 
 .container{
     width: 100%;
     max-width: 1200px;
-        height: 100%;
-        margin: auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
         
 }
 
@@ -115,7 +269,7 @@ main{
       }
   }
 
-  .banner-txt-right {
+.banner-txt-right {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -171,6 +325,4 @@ footer{
     }
 }
 
-@media(max-width: 640px) {
 
-}

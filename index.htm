@@ -15,13 +15,17 @@
     <title>個人網頁</title>
   </head>
   <body>
+    <!-- header -->
     <header>
       <div class="navbar">
         <a href="#">Home</a>
-        <a href="#">Projects</a>
+        <a href="#team">團體專題</a>
+        <a href="#personal">個人專題</a>
       </div>
       <div class="navbar-right"></div>
     </header>
+
+    <!-- main icon-->
     <main>
       <h1>Hi, My name is OWO</h1>
       <a
@@ -35,6 +39,67 @@
         <a href="#"><i class="fa-brands fa-facebook"></i></a>
       </div>
     </main>
+
+    <!-- section 團隊專題-->
+    <section>
+      <div class="team" id="team">
+        <h1>團隊專題</h1>
+        <div class="container">
+          <iframe
+            src="https://www.youtube.com/embed/h0GvvBTBg3U"
+            title="2022資展國際－前端工程師養成班成果發表（第二組－藝化）"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <article>
+            本網站以簡潔的介面與活潑的配色作為視覺設計，目標客群為對藝術有濃厚興趣以及想輕鬆瞭解美感生活的人。
+            主要功能提供美術館展覽活動資訊、售票以及商品販售，並具社群功能，使用者可於討論區進行心得分享與線上即時聊天互動。同時結合美術館館方於本平台上架的功能，在使用者與廠商間搭起良好的橋樑，致力提供最優質的使用者體驗。
+          </article>
+        </div>
+        <a href="https://github.com/JosephYu0326/artilize/tree/B2B">Github</a>
+      </div>
+    </section>
+
+    <!-- section 個人專題-->
+    <section>
+      <div class="personal" id="personal">
+        <h1>
+          個人專題
+          <small>前端購物車</small>
+        </h1>
+        <div class="container">
+          <!-- <img src="./img/shoping.JPG" alt="shopping" /> -->
+          <div class="shopingImg"></div>
+          <article>
+            用 html css javaScript 做出來的購物車。 使用 json 和 localstorage
+            當做購物車商品的資料 顯示在在網頁上
+          </article>
+        </div>
+        <h2>Github</h2>
+        <!-- <a href="http://">Github</a> -->
+      </div>
+    </section>
+
+    <section>
+      <div class="personal">
+        <h1>
+          個人專題
+          <small>時鐘</small>
+        </h1>
+        <div class="container">
+          <!-- <img src="./img/clock.JPG" alt="clock" /> -->
+          <div class="clockImg"></div>
+          <article>
+            用 html css javaScript 做出來的購物車。 使用 json 和 localstorage
+            當做購物車商品的資料 顯示在在網頁上
+          </article>
+        </div>
+        <h2>Github</h2>
+      </div>
+    </section>
+
+    <!-- banner -->
     <div class="banner">
       <div class="container">
         <div class="banner-txt-left">
@@ -57,6 +122,7 @@
       </div>
     </div>
 
+    <!-- footer -->
     <footer>
       <div class="icon">
         <a href="https://github.com/Chuan-OWO"
