@@ -1,3 +1,5 @@
+alert('這是一個練習')
+
 let shop =document.querySelector(`#shop`)
 
 let basket= JSON.parse(localStorage.getItem('data')) || []
