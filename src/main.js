@@ -1,4 +1,4 @@
-alert('這是一個練習')
+alert('這是一個練習,不會用於商業用途')
 
 let shop =document.querySelector(`#shop`)
 
