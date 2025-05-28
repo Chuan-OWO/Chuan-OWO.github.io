@@ -6,32 +6,74 @@
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
     <style>
-      body { margin: 0; overflow: hidden; }
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        color: white;
+        font-family: sans-serif;
+      }
+
+      #start-button {
+        padding: 1em 2em;
+        font-size: 1.2em;
+        background-color: #006eff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      #scene-container {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
     </style>
   </head>
+
   <body>
-    <a-scene
-      embedded
-      arjs="sourceType: webcam;"
-    >
-      <!--arjs="sourceType: webcam; facingMode: environment;"-->
-      <!-- 標記追蹤 Hiro -->
-      <!-- <a-marker preset="hiro">
-        <a-box position="0 0.5 0" material="color: red;"></a-box>
-      </a-marker> -->
-      <!-- <a-marker preset='custom' type='pattern' url='pattern-qr-code.patt'>
-        <a-entity text="width: 5; value:Happy Birthday To You" position='1.4 1.8 0'></a-entity>                   
-        <a-entity id='gltf' gltf-model="url(scene.gltf)" position='0 0.5 0' scale='0.2 0.2 0.2'></a-entity> 
-      </a-marker> -->
+    <button id="start-button">啟動 AR</button>
 
-      <a-marker preset='custom' type='pattern' url='pattern-qr-code.patt'>
-        <a-entity text="width: 5; value:Happy Birthday To You" position='1.4 1.8 0'></a-entity>
-        <a-entity id='gltf' gltf-model="url(scene.gltf)" position='0 0.5 0' scale='0.2 0.2 0.2'></a-entity>
-      </a-marker>
-      
+    <div id="scene-container"></div>
 
-      <!-- 相機實體 -->
-      <a-entity camera></a-entity>
-    </a-scene>
+    <script>
+      document.getElementById("start-button").addEventListener("click", async () => {
+        try {
+          // 檢查攝影機權限
+          await navigator.mediaDevices.getUserMedia({ video: true });
+
+          // 隱藏按鈕，顯示場景
+          document.getElementById("start-button").style.display = "none";
+          document.getElementById("scene-container").style.display = "block";
+
+          // 建立 A-Frame Scene
+          document.getElementById("scene-container").innerHTML = `
+            <a-scene
+              embedded
+              arjs="sourceType: webcam; facingMode: environment; debugUIEnabled: false;"
+            >
+              <a-marker preset='custom' type='pattern' url='pattern-qr-code.patt'>
+                <a-entity text="width: 5; value:Happy Birthday To You" position='1.4 1.8 0'></a-entity>
+                <a-entity id='gltf' gltf-model="url(scene.gltf)" position='0 0.5 0' scale='0.2 0.2 0.2'></a-entity>
+              </a-marker>
+              <a-entity camera></a-entity>
+            </a-scene>
+          `;
+        } catch (err) {
+            console.log("err = ",err)
+          alert("⚠️ 錯誤：無法存取攝影機\n" + err.name + ": " + err.message);
+
+        }
+      });
+    </script>
   </body>
 </html>
