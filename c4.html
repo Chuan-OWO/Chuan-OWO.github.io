@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR.js GLTF 模型展示</title>
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.1/aframe/build/aframe-ar.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+      <!-- AR Marker -->
+      <a-marker type="pattern" url="pattern-fenNFT.patt">
+        <!-- 3D 模型放在 Marker 上 -->
+        <a-entity
+          gltf-model="model/female_orca.glb"
+          scale="0.5 0.5 0.5"
+          position="0 0 0"
+          rotation="0 0 0">
+        </a-entity>
+      </a-marker>
+
+      <!-- AR 相機 -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
