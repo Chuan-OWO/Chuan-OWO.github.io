@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.js GLTF 模型展示</title>
+    <meta charset="utf-8" />
+    <title>虎鯨 WebAR 展示</title>
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.2.1/aframe/build/aframe-ar.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
   </head>
-  <body style="margin: 0; overflow: hidden;">
+  <body>
     <a-scene embedded arjs>
-      <!-- AR Marker -->
+      <!-- Marker 使用你的 pattern-fenNFT -->
       <a-marker type="pattern" url="pattern-fenNFT.patt">
-        <!-- 3D 模型放在 Marker 上 -->
+        <!-- 3D 模型（虎鯨） -->
         <a-entity
-          gltf-model="model/female_orca.glb"
-          scale="5 5 5"
+          gltf-model="female_orca.glb"
+          scale="0.5 0.5 0.5"
           position="0 0 0"
-          rotation="0 0 0">
-        </a-entity>
+          rotation="0 0 0"
+        ></a-entity>
       </a-marker>
 
-      <!-- AR 相機 -->
+      <!-- 相機 -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
