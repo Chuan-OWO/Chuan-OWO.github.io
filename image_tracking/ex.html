@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>AR.js NFT 範例</title>
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.6.0/dist/aframe-master.min.js"></script>
+  <!-- 這裡的路徑請依照實際專案結構調整 -->
+  <script src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js'></script>
+
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .arjs-loader div {
+      text-align: center;
+      font-size: 1.25em;
+      color: white;
+    }
+  </style>
+</head>
+<body style="margin: 0px; overflow: hidden;">
+
+  <!-- 載入中畫面 -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+
+  <!-- A-Frame 場景 -->
+  <a-scene
+    vr-mode-ui="enabled: false"
+    renderer="logarithmicDepthBuffer: true; precision: medium;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+
+    <!-- NFT 標記與模型 -->
+    nft/fenNFT.iset
+    <a-nft
+      type="nft"
+      url="nft/fenNFT"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance="0.01"
+      smoothThreshold="5">
+      <a-entity
+        gltf-model="model/dolphin/scene.bin"
+        scale="5 5 5"
+        position="150 300 -100">
+      </a-entity>
+    </a-nft>
+
+    <!-- AR 相機 -->
+    <a-entity camera></a-entity>
+  </a-scene>
+
+</body>
+</html>
