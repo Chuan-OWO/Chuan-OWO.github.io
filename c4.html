@@ -15,10 +15,10 @@
   <body>
     <a-scene embedded arjs>
       <!-- Marker 使用你的 pattern-fel -->
-      <a-marker type="pattern" url="pattern-fel.patt">
+      <a-marker type="pattern" url="/patt/pattern-fel.patt">
         <!-- 3D 模型（虎鯨） -->
         <a-entity
-          gltf-model="model/dolphin/scene.gltf"
+          gltf-model="url(./model/scene.gltf)"
           scale="10 10 10 "
           position="50 150 0"
           rotation="0 0 0"
