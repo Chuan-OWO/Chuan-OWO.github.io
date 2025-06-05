@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AR.js NFT 教學（最新版）</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.7.1/dist/aframe-master.min.js"></script>
+
+    <!-- ✅ 最新版 AR.js for NFT (v3.4.2+) -->
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.4.2/aframe/build/aframe-ar-nft.min.js"></script>
+
+    <style>
+      body { margin: 0; overflow: hidden; }
+      a-scene { width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; }
+    </style>
+  </head>
+  <body>
+    <a-scene
+      vr-mode-ui="enabled: false"
+      renderer="logarithmicDepthBuffer: true;"
+      embedded
+      arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;"
+    >
+
+      <!-- ✅ NFT 圖像追蹤：引用 nft/image.fset 檔 -->
+      <a-nft
+        type="nft"
+        url="./nft/fff/fff"  
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5"
+      >
+        <!-- ✅ 顯示一個紅色立方體 -->
+        <a-box position="0 0.5 0" material="color: red;"></a-box>
+      </a-nft>
+
+      <!-- ✅ AR 相機 -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
