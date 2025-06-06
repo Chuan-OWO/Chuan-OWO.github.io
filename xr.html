@@ -1,50 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
   <head>
-    <meta charset="utf-8" />
-    <title>Three.js WebAR Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/webxr/ARButton.js"></script>
-  </head>
-  <body style="margin: 0; overflow: hidden; font-family: sans-serif; background-color: #000;">
-    123
-    <div id="info" style="color: white; position: absolute; top: 10px; left: 10px;"></div>
-    <script>
-      const info = document.getElementById("info");
-
-      if (!navigator.xr) {
-        info.innerHTML = "❌ 此瀏覽器不支援 WebXR，請使用 Android + Chrome 測試";
-      } else {
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera();
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.xr.enabled = true;
-        document.body.appendChild(renderer.domElement);
-
-        // 加入立方體
-        const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-        const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-        const cube = new THREE.Mesh(geometry, material);
-        cube.position.set(0, 0, -0.5);
-        scene.add(cube);
-
-        document.body.appendChild(
-          ARButton.createButton(renderer, {
-            requiredFeatures: ['hit-test'],
-            optionalFeatures: ['dom-overlay'],
-            domOverlay: { root: document.body },
-          })
-        );
-
-        renderer.setAnimationLoop(() => {
-          cube.rotation.y += 0.01;
-          renderer.render(scene, camera);
-        });
-
-        info.innerHTML = "✅ 請點擊下方 Start AR 按鈕進入擴增實境模式";
+    <meta charset="UTF-8" />
+    <title>Three.js WebXR AR 範例</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
       }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
+      import { ARButton } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/webxr/ARButton.js';
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera();
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.xr.enabled = true;
+      document.body.appendChild(renderer.domElement);
+
+      // AR 啟動按鈕
+      document.body.appendChild(ARButton.createButton(renderer, { requiredFeatures: ['hit-test'] }));
+
+      // 建立立方體
+      const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(0, 0, -0.5);
+      scene.add(cube);
+
+      renderer.setAnimationLoop(() => {
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      });
     </script>
   </body>
 </html>
