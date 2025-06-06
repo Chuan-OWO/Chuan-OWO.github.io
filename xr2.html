@@ -39,7 +39,7 @@
         scene.add(light);
 
         const loader = new GLTFLoader();
-        loader.load('assets/asset.glb', (gltf) => {
+        loader.load('./assets/asset.glb', (gltf) => {
           model = gltf.scene;
           model.scale.set(0.2, 0.2, 0.2); // 依實際模型調整大小
         });
