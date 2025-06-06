@@ -8,6 +8,10 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+
     <!-- style for the loader -->
     <style>
       .arjs-loader {
@@ -37,32 +41,45 @@
       <div>Loading, please wait...</div>
     </div>
 
-    <!-- a-frame scene -->
-    <a-scene
-      vr-mode-ui="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      embedded
-      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+        <!-- a-frame scene -->
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            renderer="logarithmicDepthBuffer: true;"
+            embedded
+            arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+            gesture-detector
+        >
       <!-- a-nft is the anchor that defines an Image Tracking entity -->
       <!-- on 'url' use the path to the Image Descriptors created before. -->
       <!-- the path should end with the name without the extension e.g. if file is trex.fset' the path should end with trex -->
-      <a-nft
-        type="nft"
-        url="./nft/female/female"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance=".01"
-        smoothThreshold="5">
-          <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-          <a-entity
-          gltf-model="assets/asset.glb"
-              scale="5 5 5"
-              position="100 100 0"
-          >
-          </a-entity>
-      </a-nft>
-      <!-- static camera that moves according to the device movemenents -->
-      <a-entity camera></a-entity>
+
+        <a-assets>
+            <a-asset-item
+                id="animated-asset"
+                src="assets/asset.glb"
+            ></a-asset-item>
+        </a-assets>
+
+
+        <a-nft
+            type="nft"
+            url="./nft/female/female"
+            smooth="true"
+            smoothCount="10"
+            smoothTolerance=".01"
+            smoothThreshold="5"
+        >
+            <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
+            <a-entity
+                scale="1 1 1"
+                position="0 0 0"
+                animation-mixer="loop: repeat"
+                gltf-model="#animated-asset"
+                gesture-handler
+            ></a-entity>
+        </a-nft>
+        <!-- static camera that moves according to the device movemenents -->
+        <a-entity camera position="0 0 0"></a-entity>
     </a-scene>
   </body>
 </html>
