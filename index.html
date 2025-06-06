@@ -2,10 +2,15 @@
 <html>
     <head>
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        {% comment %} 引入 A-Frame 1.0.4，是一個基於 HTML 語法的 WebXR 框架，用來建立 3D 或 VR/AR 體驗。 {% endcomment %}
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        {% comment %} 引入 AR.js 的 A-Frame 版本，加入影像辨識與追蹤的功能。 {% endcomment %}
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+        {% comment %} 加入額外的 gltf-model 載入功能，支援 GLB/GLTF 模型動畫等。 {% endcomment %}
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        {% comment %} gesture-detector：偵測觸控手勢。
+        gesture-handler：讓物件支援用手勢（滑動、縮放）來旋轉與縮放。 {% endcomment %}
     </head>
 
     <body style="margin: 0; overflow: hidden;">
@@ -18,12 +23,29 @@
             embedded
             gesture-detector
         >
+        {% comment %} A-Frame 的主要場景容器 {% endcomment %}
+        {% comment %} 
+            vr-mode-ui="false"：禁用 VR 按鈕。
+            loading-screen="false"：禁用載入畫面。
+            renderer="logarithmicDepthBuffer: true;"：避免深度渲染錯誤（解決 z-fighting 問題）。
+            arjs：設定 AR.js 功能：
+            trackingMethod: best：自動選擇 marker 或 location-based。
+            sourceType: webcam：使用網頁攝影機。
+            debugUIEnabled: false：關閉 debug 視窗。
+            embedded：讓 scene 可以嵌入於其他元素中。
+            gesture-detector：啟用手勢偵測（來自前面載入的腳本）。 
+        {% endcomment %}
+
             <a-assets>
                 <a-asset-item
                     id="animated-asset"
                     src="assets/asset.glb"
                 ></a-asset-item>
             </a-assets>
+            {% comment %} 
+            預先載入資源
+            預先載入 GLB 模型檔案，以免在需要時才載入造成延遲。 
+            {% endcomment %}
 
             <a-marker
                 id="animated-marker"
@@ -35,6 +57,17 @@
                 cursor="fuse: false; rayOrigin: mouse;"
                 id="markerA"
             >
+            {% comment %} 設定 AR marker 的追蹤與互動 {% endcomment %}
+            {% comment %} 
+            屬性說明：
+            type="pattern"：使用圖案辨識（marker-based AR）。
+            preset="custom"：使用自訂的 .patt 檔案。
+            url="assets/marker.patt"：指定 marker 檔案路徑。
+            raycaster：設置可以點擊 .clickable 的物件。
+            emitevents="true"：可發出事件（例如 marker found/lost）。
+            cursor：滑鼠互動設定，從 mouse 發射射線。 
+            {% endcomment %}
+
                 <a-entity
                     id="bowser-model"
                     scale="0.03295687896304461 0.03295687896304461 0.03295687896304461"
@@ -43,9 +76,21 @@
                     class="clickable"
                     gesture-handler
                 ></a-entity>
+                {% comment %} 放置可互動的模型物件 {% endcomment %}
+                {% comment %} 
+                    id="bowser-model"：給模型命名。
+                    scale="..."：模型縮小至合適大小。
+                    animation-mixer="loop: repeat"：啟用 GLTF 模型動畫重複播放。
+                    gltf-model="#animated-asset"：載入前面定義的 GLB 模型。
+                    class="clickable"：用於 raycaster 偵測點擊。
+                    gesture-handler：允許旋轉與縮放（由使用者手勢控制）。 
+                {% endcomment %}
+
             </a-marker>
 
             <a-entity camera></a-entity>
+            {% comment %} 放置攝影機 {% endcomment %}
+            {% comment %} 建立攝影機視角，是 A-Frame 必備的元件。這裡不需要額外設定，AR.js 會自動處理。 {% endcomment %}
         </a-scene>
     </body>
 </html>
