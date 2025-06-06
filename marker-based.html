@@ -19,7 +19,7 @@
   </head>
   <body>
     <a-scene embedded arjs gesture-detector>
-      <a-marker type="pattern" url="assets/pattern-female.patt">
+      <a-marker type="pattern" url="assets/pattern-female_1.patt">
         <a-entity
           gltf-model="assets/asset.glb"
           scale="0.1 0.1 0.1"
@@ -44,9 +44,6 @@
 數值越小 → 模型越小；越大 → 模型越大。
 
 ✅ 調整方式範例：
-html
-複製
-編輯
 scale="0.05 0.05 0.05" <!-- 縮小一半 -->
 scale="2 2 2"           <!-- 放大兩倍 --> {% endcomment %}
 
@@ -55,11 +52,8 @@ scale="2 2 2"           <!-- 放大兩倍 --> {% endcomment %}
 表示模型在 空間中的位置。
 
 單位是「米」（A-Frame 使用公尺制）。
-
 x: 左右（負值往左）
-
 y: 高度（負值往下）
-
 z: 深度（負值往攝影機方向）
 
 ✅ 調整方式範例：
@@ -69,11 +63,8 @@ position="1 0 0"   <!-- 模型往右 1 公尺 --> {% endcomment %}
 
 {% comment %} rotation="x y z"：調整模型旋轉角度
 單位為 度（degrees）。
-
 x: 前後傾斜
-
 y: 左右旋轉（通常是最常用來面對鏡頭）
-
 z: 側翻（傾斜）
 rotation="0 180 0" <!-- 模型反向（轉 180 度） -->
 rotation="90 0 0"  <!-- 模型從地上站起來 --> {% endcomment %}
