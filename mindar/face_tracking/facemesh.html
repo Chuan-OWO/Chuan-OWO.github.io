@@ -22,7 +22,7 @@
       scene.add(light);
       const faceMesh = mindarThree.addFaceMesh();
       const texture = new THREE.TextureLoader().load('./mindar/face_tracking/pelo.png');
-      // const texture = new THREE.TextureLoader().load('https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/canonical_face_model_uv_visualization.png');
+      const texture = new THREE.TextureLoader().load('https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/canonical_face_model_uv_visualization.png');
       faceMesh.material.map = texture;
       faceMesh.material.transparent = true;
       faceMesh.material.needsUpdate = true;
