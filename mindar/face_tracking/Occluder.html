@@ -6,7 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
   </head>
   <body>
-    <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+  <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
           <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf">
           </a-asset-item>
@@ -52,3 +52,18 @@ MindAR 提供了一種「遮擋模型」的方式，透過一個透明但能抑�
   </a-gltf-model>
 </a-entity> -->
 
+<!-- 
+  限制與注意事項
+  遮擋器模型通常是通用頭型（如 SparkAR 的頭部模型），與真實使用者頭型不完全吻合。
+
+  若頭型差異大，遮擋效果可能不自然或不精準。
+
+  💡 小結
+  問題：AR 物件穿透頭部看起來不自然。
+
+  解決法：加入透明 Occluder 模型，並掛上 mindar-face-occluder。
+
+  達成效果：自然遮擋 AR 物件，符合深度邏輯。
+
+  限制：遮擋頭型為固定通用模型，與個別臉型不一定完美吻合。 
+-->
