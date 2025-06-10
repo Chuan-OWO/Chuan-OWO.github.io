@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,7 +7,7 @@
       "imports": {
         "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
         "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
-        "mindar-image-three":"https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+        "mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
       }
     }
     </script>
@@ -23,13 +24,21 @@
       const {renderer, scene, camera} = mindarThree;
       const anchor = mindarThree.addAnchor(0);
 
-      const loader = new GLTFLoader();
+      // ✅ 加入光源（很重要）
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+      scene.add(hemiLight);
 
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+      dirLight.position.set(1, 1, 1).normalize();
+      scene.add(dirLight);
+
+      // ✅ 載入 3D 模型
+      const loader = new GLTFLoader();
       loader.load("https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf",
         (gltf) => {
           const model = gltf.scene;
           model.scale.set(0.005, 0.005, 0.005);
-          model.position.set(0, 0, 0);
+          model.position.set(0, 0, 0.1); // 稍微浮起來一點
           anchor.group.add(model);
         },
         undefined,
@@ -38,25 +47,22 @@
         }
       );
 
-      const start = async() => {
+      const start = async () => {
         await mindarThree.start();
         renderer.setAnimationLoop(() => {
           renderer.render(scene, camera);
         });
-      }
+      };
 
-      const startButton = document.querySelector("#startButton");
-      const stopButton = document.querySelector("#stopButton");
-
-      startButton.addEventListener("click", () => {
-        start();
-      });
-
-      stopButton.addEventListener("click", () => {
+      const stop = () => {
         mindarThree.stop();
-        mindarThree.renderer.setAnimationLoop(null);
-      });
+        renderer.setAnimationLoop(null);
+      };
+
+      document.querySelector("#startButton").addEventListener("click", start);
+      document.querySelector("#stopButton").addEventListener("click", stop);
     </script>
+
     <style>
       body { margin: 0; }
       #container {
@@ -70,6 +76,8 @@
         top: 0;
         left: 0;
         z-index: 2;
+        background: rgba(255,255,255,0.5);
+        padding: 5px;
       }
     </style>
   </head>
