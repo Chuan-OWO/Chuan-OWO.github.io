@@ -1,50 +1,44 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- A-Frame 核心 -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <!-- MindAR 圖像追蹤 -->
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <!-- 手勢與互動 -->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-super-hands-component@5.0.0/dist/aframe-super-hands-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/etiennepinchon/gesture-detector/gesture-detector.js"></script>
-  </head>
+<script>
+  AFRAME.registerComponent('gesture-handler', {
+    schema: {
+      enabled: { default: true },
+      rotationFactor: { default: 5 },
+      scaleFactor: { default: 2 }
+    },
+    init: function () {
+      this.handleRotation = this.handleRotation.bind(this);
+      this.handlePinch = this.handlePinch.bind(this);
 
-  <body>
-    <a-scene
-      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind;"
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-      gesture-detector
-      embedded
-    >
-      <!-- 載入資源 -->
-      <a-assets>
-        <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" />
-        <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
-      </a-assets>
+      this.el.sceneEl.addEventListener('onefingermove', this.handleRotation);
+      this.el.sceneEl.addEventListener('twofingermove', this.handlePinch);
+    },
+    handleRotation: function (event) {
+      if (!this.data.enabled) return;
+      const rotation = this.el.getAttribute('rotation');
+      this.el.setAttribute('rotation', {
+        x: rotation.x,
+        y: rotation.y + event.detail.positionChange.x * this.data.rotationFactor,
+        z: rotation.z
+      });
+    },
+    handlePinch: function (event) {
+      if (!this.data.enabled) return;
+      const scale = this.el.getAttribute('scale');
+      const scaleChange = event.detail.spreadChange / 200; // 調整靈敏度
+      const newScale = {
+        x: scale.x + scaleChange,
+        y: scale.y + scaleChange,
+        z: scale.z + scaleChange
+      };
+      // 防止縮放過小或過大
+      const clampedScale = {
+        x: Math.max(0.1, Math.min(5, newScale.x)),
+        y: Math.max(0.1, Math.min(5, newScale.y)),
+        z: Math.max(0.1, Math.min(5, newScale.z))
+      };
+      this.el.setAttribute('scale', clampedScale);
+    }
+  });
 
-      <!-- 相機 -->
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-      <!-- 圖像追蹤對象 -->
-      <a-entity mindar-image-target="targetIndex: 0">
-        <!-- 平面顯示圖片 -->
-        <a-plane src="#card" height="0.552" width="1" position="0 0 0"></a-plane>
-
-        <!-- 可互動的 3D 模型 -->
-        <a-gltf-model
-          id="model"
-          src="#avatarModel"
-          position="0 0 0.1"
-          scale="0.005 0.005 0.005"
-          rotation="0 0 0"
-          class="interactive"
-          gesture-handler
-        ></a-gltf-model>
-      </a-entity>
-    </a-scene>
-  </body>
-</html>
+  document.querySelector('#gesture-model').setAttribute('gesture-handler', '');
+</script>
