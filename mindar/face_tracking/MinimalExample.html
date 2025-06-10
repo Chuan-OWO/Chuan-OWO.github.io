@@ -1,0 +1,46 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <!-- A‑Frame（aframe.min.js）：一個建立 3D Web 場景的框架，讓你透過 HTML tag 管理 3D 元素。 -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+    <!-- MindAR‑face‑aframe（mindar-face‑aframe.prod.js）：整合 MindAR 的臉部追蹤功能，提供 <a-scene mindar-face> 和 <a-entity mindar-face-target> 等 tag 屬性。 -->
+  </head>
+  <body>
+    <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"              vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+
+      <a-camera active="false" position="0 0 0"></a-camera>
+
+      <a-entity mindar-face-target="anchorIndex: 1">
+	      <a-sphere color="green" radius="0.1"></a-spher>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
+
+
+<!-- 
+  <a-scene mindar-face>：啟動臉部追蹤
+  mindar-face：告訴 A-Frame 使用 MindAR 引擎來偵測臉部。
+  embedded、 renderer、 vr-mode-ui disable…：這些是場景的視覺與使用者介面設定，屬於 A‑Frame 的標準屬性。 
+-->
+
+<!-- 
+    <a-entity mindar-face-target="anchorIndex: 1">
+    mindar-face-target：將該 3D 元件鎖定到臉部的某個點（anchorIndex）。
+    anchorIndex: 1：代表「鼻尖」這個 landmark。MindAR 在臉上提供多達 486 個 anchor 可用。 
+-->
+
+<!-- 
+    自動縮放與旋轉效果
+    縮放：系統會根據臉的寬度自動調整物件尺寸，臉寬＝1 單位。程式範例中半徑 0.1 的球，大約能貼合臉部 20% 寬度。
+    旋轉：MindAR 利用兩眼間的相對位置計算臉部方向，因此各 anchor 也會跟著臉轉動。
+-->
+
+<!-- 
+    Anchor 點位置
+    MindAR 提供非常多的臉部 landmark，可以定位在眼睛、嘴巴、下巴等 486 個點。
+    完整對應位置可在 TensorFlow face‑mesh 模型中找到圖示檔。
+-->

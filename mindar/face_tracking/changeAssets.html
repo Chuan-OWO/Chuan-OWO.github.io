@@ -6,14 +6,22 @@
   </head>
   <body>
     <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+
       <a-assets>
-	    <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
+	      <a-asset-item id="glassesModel" 
+            src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf">
+        </a-asset-item>
       </a-assets>
 
       <a-camera active="false" position="0 0 0"></a-camera>
+
       <a-entity mindar-face-target="anchorIndex: 168">
-	    <a-gltf-model rotation="0 0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel"></a-gltf-model>
+        <!-- anchorIndex: 168 通常對應眼鏡位置的關鍵點 -->
+	        <a-gltf-model rotation="0 0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel">
+            <!-- scale="0.01" 是經過實驗調整後的尺寸，使模型大小與臉部比例吻合 -->
+          </a-gltf-model>
       </a-entity>
+
     </a-scene>
   </body>
 </html>
