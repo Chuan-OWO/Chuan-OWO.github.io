@@ -16,6 +16,32 @@
 
 
 
+<!-- 
+    <html>: HTML 文件的開始標籤。
+
+    <head>: 包含了該網頁的元資料，例如 <meta> 標籤定義了視窗的大小及初始縮放比例。
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />: 設定網頁在各種裝置上顯示時的視窗大小及初始縮放比例。
+
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>: 引入 A-Frame 框架的 JavaScript 文件，用來建立和渲染 3D 虛擬場景。
+
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>: 引入 MIND AR 的 JavaScript 文件，支援圖像追踪和擴增實境效果。
+
+    <body>: HTML 主體部分的開始標籤，包含了網頁的內容。
+
+    <a-scene>: A-Frame 的場景標籤，用來設置和渲染 3D 场景。
+
+    mindar-image="imageTargetSrc: ...": A-Frame 的擴增實境組件，設定了圖像追踪的參數，指定了要追踪的圖像。
+
+    vr-mode-ui="enabled: false" 和 device-orientation-permission-ui="enabled: false": 禁用了 VR 模式和設備方向授權的 UI，使得在 Web 上運行時無需進行這些設置。
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>: A-Frame 的相機實體，設定在場景中的位置並禁用了視線控制。
+
+    <a-entity mindar-image-target="targetIndex: 0">: 定義了一個擴增實境的實體，設定了目標索引為 0，用來對應擴增實境追踪的圖像。
+
+    <a-plane color="blue" opaciy="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>: 在擴增實境目標上定義了一個藍色的平面，設定了透明度、位置、大小和旋轉。
+-->
+
 
 <!-- 
   引入函式庫
