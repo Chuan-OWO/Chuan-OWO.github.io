@@ -1,44 +1,83 @@
-<script>
-  AFRAME.registerComponent('gesture-handler', {
-    schema: {
-      enabled: { default: true },
-      rotationFactor: { default: 5 },
-      scaleFactor: { default: 2 }
-    },
-    init: function () {
-      this.handleRotation = this.handleRotation.bind(this);
-      this.handlePinch = this.handlePinch.bind(this);
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MindAR Image Tracking with Gesture</title>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.2.0/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@latest/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-gesture-detector-component/dist/aframe-gesture-detector-component.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      mindar-image="imageTargetSrc: ./targets.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: true"
+      embedded
+    >
+      <a-assets>
+        <a-asset-item id="myModel" src="./model.glb"></a-asset-item>
+      </a-assets>
 
-      this.el.sceneEl.addEventListener('onefingermove', this.handleRotation);
-      this.el.sceneEl.addEventListener('twofingermove', this.handlePinch);
-    },
-    handleRotation: function (event) {
-      if (!this.data.enabled) return;
-      const rotation = this.el.getAttribute('rotation');
-      this.el.setAttribute('rotation', {
-        x: rotation.x,
-        y: rotation.y + event.detail.positionChange.x * this.data.rotationFactor,
-        z: rotation.z
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-entity
+          id="gesture-model"
+          gltf-model="#myModel"
+          position="0 0 0"
+          scale="0.5 0.5 0.5"
+          rotation="0 0 0"
+          gesture-detector
+          class="interactive"
+        ></a-entity>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      AFRAME.registerComponent('gesture-handler', {
+        schema: {
+          enabled: { default: true },
+          rotationFactor: { default: 5 },
+          scaleFactor: { default: 2 }
+        },
+        init: function () {
+          this.handleRotation = this.handleRotation.bind(this);
+          this.handlePinch = this.handlePinch.bind(this);
+
+          this.el.sceneEl.addEventListener('onefingermove', this.handleRotation);
+          this.el.sceneEl.addEventListener('twofingermove', this.handlePinch);
+        },
+        handleRotation: function (event) {
+          if (!this.data.enabled) return;
+          const rotation = this.el.getAttribute('rotation');
+          this.el.setAttribute('rotation', {
+            x: rotation.x,
+            y: rotation.y + event.detail.positionChange.x * this.data.rotationFactor,
+            z: rotation.z
+          });
+        },
+        handlePinch: function (event) {
+          if (!this.data.enabled) return;
+          const scale = this.el.getAttribute('scale');
+          const scaleChange = event.detail.spreadChange / 200;
+          const newScale = {
+            x: scale.x + scaleChange,
+            y: scale.y + scaleChange,
+            z: scale.z + scaleChange
+          };
+          const clampedScale = {
+            x: Math.max(0.1, Math.min(5, newScale.x)),
+            y: Math.max(0.1, Math.min(5, newScale.y)),
+            z: Math.max(0.1, Math.min(5, newScale.z))
+          };
+          this.el.setAttribute('scale', clampedScale);
+        }
       });
-    },
-    handlePinch: function (event) {
-      if (!this.data.enabled) return;
-      const scale = this.el.getAttribute('scale');
-      const scaleChange = event.detail.spreadChange / 200; // 調整靈敏度
-      const newScale = {
-        x: scale.x + scaleChange,
-        y: scale.y + scaleChange,
-        z: scale.z + scaleChange
-      };
-      // 防止縮放過小或過大
-      const clampedScale = {
-        x: Math.max(0.1, Math.min(5, newScale.x)),
-        y: Math.max(0.1, Math.min(5, newScale.y)),
-        z: Math.max(0.1, Math.min(5, newScale.z))
-      };
-      this.el.setAttribute('scale', clampedScale);
-    }
-  });
 
-  document.querySelector('#gesture-model').setAttribute('gesture-handler', '');
-</script>
+      document.querySelector('#gesture-model').setAttribute('gesture-handler', '');
+    </script>
+  </body>
+</html>
