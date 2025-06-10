@@ -1,4 +1,4 @@
-<head>
+<!-- <head>
     <style>
         #example-scanning-overlay {
         }
@@ -15,4 +15,66 @@
     <a-scene mindar-image="uiScanning: #example-scanning-overlay; imageTargetSrc: ./targets.mind">
       ...
     </a-scene>
+  </body> -->
+
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+      #example-scanning-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+      }
+      #example-scanning-overlay.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="example-scanning-overlay">
+      🔍 請將鏡頭對準卡片圖像...
+    </div>
+
+    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <!-- <a-scene mindar-image>：建立一個 AR 場景，會讀取指定的追蹤目標資料（例如 .mind 檔案）。 -->
+      <!-- color-space="sRGB"：顏色處理模式。 -->
+      <!-- renderer="..."：提升渲染真實度。 -->
+      <!-- vr-mode-ui="enabled: false"：關掉 VR UI。 -->
+      <!-- device-orientation-permission-ui="enabled: false"：避免顯示裝置方向權限提示（尤其在 iOS）。 -->
+  
+      <a-assets>
+        <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" />
+        <a-asset-item id="avatarModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item>
+      </a-assets>
+      <!-- card.png 是用來顯示的平面圖像。
+      scene.gltf 是要顯示在卡片上的 3D 模型。 -->
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <!-- <a-camera>：相機元件。 -->
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- <a-entity mindar-image-target>：表示當指定圖像被偵測時，會在其上方顯示這個內容。 -->
+        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+        <!-- position="0 0 0"：設在場景中心。 -->
+        <!-- look-controls="enabled: false"：禁用使用者移動視角（因為由相機主導）。 -->
+        <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
+          animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+        >
+        <!-- 模型會輕微上下浮動（利用 animation 屬性）。 -->
+        <!-- 使用 scale 調整大小，讓模型不會過大。 -->
+      </a-entity>
+    </a-scene>
   </body>
+  

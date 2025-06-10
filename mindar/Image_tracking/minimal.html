@@ -1,4 +1,3 @@
-
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,3 +13,44 @@
     </a-scene>
   </body>
 </html>
+
+
+
+
+<!-- 
+  引入函式庫
+  A‑Frame：建立 3D AR 場景
+  mindar-face‑aframe：提供臉部追蹤功能
+
+  <a‑scene mindar-face>
+  啟用 MindAR 臉部辨識
+  embedded 讓場景內嵌於頁面中
+  關閉 VR UI 和裝置方向權限提示
+
+  <a-camera active="false">
+  雖然 A‑Frame 需要定義相機，但 MindAR 自行管理位置，因此 active="false"
+
+  <a-entity mindar-face-target="anchorIndex: 1">
+  將該條 <a-entity> 錨定於使用者臉部的第 1 號 anchor（鼻尖）
+
+  <a-sphere color="green"...>
+  半徑 0.1 的綠色球體會套用自動位置、縮放與旋轉
+  當您左右轉頭時，球體會依臉部動作同步移動
+
+  ✅ 整體流程簡化
+  撥放頁面 → 啟動相機並進入臉部辨識
+  尋找臉部 landmark → 自動定位 nose tip（anchorIndex 1）
+  在鼻尖渲染球體 → AR 元件會隨臉部自動縮放與趨向
+  當使用者移動臉部，球體看起來像是固定在鼻子上
+
+  🧩 為什麼這是「Minimal」？
+  不用模型、不用預載資源
+  僅展示最核心的臉部辨識能力：定位 & 追蹤
+  幫助你快速驗證你的攝像頭與權限設定是否正確
+
+  🔜 接下來可以做什麼？
+  換成其他 anchor：想定位眼睛、嘴唇、下巴？只要改 anchorIndex
+  套用3D 模型：像帽子、眼鏡等，只要換 <a-sphere> 為 <a-gltf-model>
+  加入遮擋器 Occluder：讓帽子/眼鏡在視線轉動時有自然遮擋效果
+  加入互動：響應臉部動作或事件觸發動畫、UI 等 
+-->
