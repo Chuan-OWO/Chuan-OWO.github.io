@@ -8,6 +8,10 @@
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/band.mind; maxTrack: 2" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <!-- maxTrack -->
+      <!-- There is a maxTrack: 2; parameter set inside a-scene -->
+      <!-- This parameter specify the maximum number of target that will be tracked simultaneously. Default is 1. -->
+      <!-- This parameter has a great impact on performance. You should avoid tracking many targets at the same time. -->
       <a-assets>
         <a-asset-item id="bearModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/bear/scene.gltf"></a-asset-item>
         <a-asset-item id="raccoonModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/raccoon/scene.gltf"></a-asset-item>
