@@ -24,19 +24,9 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
       #example-scanning-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.6);
-        z-index: 999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 24px;
+        
       }
+      
       #example-scanning-overlay.hidden {
         display: none;
       }
@@ -46,7 +36,18 @@
     <div id="example-scanning-overlay">
       🔍 請將鏡頭對準卡片圖像...
     </div>
-
+    <!-- position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px; -->
     <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; uiScanning: #example-scanning-overlay;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <!-- <a-scene mindar-image>：建立一個 AR 場景，會讀取指定的追蹤目標資料（例如 .mind 檔案）。 -->
       <!-- color-space="sRGB"：顏色處理模式。 -->
