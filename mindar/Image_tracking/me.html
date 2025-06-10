@@ -10,8 +10,18 @@
 
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@latest/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-gesture-detector-component/dist/aframe-gesture-detector-component.min.js"></script>
+
+    <style>
+        html, body, a-scene {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+      </style>
   </head>
-  <body>
+  <body style="margin: 0; overflow: hidden;">
     <a-scene
       mindar-image="imageTargetSrc: ./targets.mind;"
       color-space="sRGB"
