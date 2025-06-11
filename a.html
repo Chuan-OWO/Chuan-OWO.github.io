@@ -11,13 +11,13 @@
       vr-mode-ui="enabled: false"
       embedded
       arjs="sourceType: webcam; gpsMinAccuracy: 100;">
-
-      <!-- ✅ 加入方向感測器支援 -->
+      
+      <!-- ✅ 必加 orientation-controls -->
       <a-entity 
         camera 
         gps-new-camera 
         rotation-reader 
-        look-controls="enabled: true; magicWindowTrackingEnabled: true" 
+        orientation-controls 
         wasd-controls-enabled="false">
       </a-entity>
     </a-scene>
