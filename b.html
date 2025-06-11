@@ -28,10 +28,15 @@
                     animation-mixer="loop: repeat"
                     gltf-model="#animated-asset"
                     scale="120 120 120"
-                    gps-entity-place="latitude: 22.650450; longitude: 120.341423;"
+                    position="0 0 -5"
                 ></a-entity>
 
             <a-camera gps-camera rotation-reader></a-camera>
         </a-scene>
     </body>
+    <script>
+        window.addEventListener('gps-entity-place-added', function (ev) {
+            console.log('模型已成功定位到地圖：', ev.detail);
+        });
+    </script>
 </html>
