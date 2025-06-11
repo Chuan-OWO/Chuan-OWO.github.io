@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+.<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -15,25 +15,12 @@
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     >
       <a-text
-        id="location-text"
-        value="正在取得位置..."
+        value="This content will always face you."
         look-at="[gps-camera]"
         scale="120 120 120"
+        gps-entity-place="latitude: 22.650450; longitude: 120.341423;"
       ></a-text>
-
-      <a-camera gps-camera rotation-reader></a-camera>
+      <a-camera gps-camera rotation-reader> </a-camera>
     </a-scene>
-
-    <script>
-      // 等待 GPS 定位完成後更新文字與位置
-      window.addEventListener('gps-camera-update-position', function (e) {
-        const latitude = e.detail.position.latitude;
-        const longitude = e.detail.position.longitude;
-
-        const text = document.getElementById('location-text');
-        text.setAttribute('value', `經度: ${longitude}\n緯度: ${latitude}`);
-        text.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-      });
-    </script>
   </body>
 </html>
