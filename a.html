@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AR.js Location Based</title>
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  </head>
+<head>
+  <title>AR.js Location Based</title>
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
 
-  <body style="margin: 0px; overflow: hidden;">
-    <a-scene
-      vr-mode-ui="enabled: false"
-      embedded
-      arjs="sourceType: webcam; gpsMinAccuracy: 100;">
-      
-      <!-- ✅ 必加 orientation-controls -->
-      <a-entity 
-        camera 
-        gps-new-camera 
-        rotation-reader 
-        orientation-controls 
-        wasd-controls-enabled="false">
-      </a-entity>
-    </a-scene>
+<body style="margin: 0; overflow: hidden;">
+  <a-scene
+    device-orientation-permission-ui="enabled: true"
+    vr-mode-ui="enabled: false"
+    embedded
+    arjs="sourceType: webcam; gpsMinAccuracy: 100;">
 
-    <script>
-      window.onload = () => {
-        let testEntityAdded = false;
+    <a-camera
+      gps-new-camera="gpsMinDistance: 100;"
+      rotation-reader
+      arjs-device-orientation-controls="smoothingFactor: 0.1"
+      look-controls-enabled="false">
+    </a-camera>
+  </a-scene>
 
-        const el = document.querySelector("[gps-new-camera]");
+  <!-- 如你已有的 GPS Entity 生成程式可以接續加入 -->
+  <script>
+    window.onload = () => {
+      let testEntityAdded = false;
 
-        el.addEventListener("gps-camera-update-position", e => {
-          if (!testEntityAdded) {
-            alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
-            const entity = document.createElement("a-box");
-            entity.setAttribute("scale", {
-              x: 20,
-              y: 20,
-              z: 20
-            });
-            entity.setAttribute('material', { color: 'red' });
-            entity.setAttribute('gps-new-entity-place', {
-              latitude: e.detail.position.latitude + 0.001,
-              longitude: e.detail.position.longitude
-            });
-            document.querySelector("a-scene").appendChild(entity);
-            testEntityAdded = true;
-          }
-        });
-      };
-    </script>
-  </body>
+      const el = document.querySelector("[gps-new-camera]");
+
+      el.addEventListener("gps-camera-update-position", e => {
+        if (!testEntityAdded) {
+          alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
+          const entity = document.createElement("a-box");
+          entity.setAttribute("scale", {
+            x: 20,
+            y: 20,
+            z: 20
+          });
+          entity.setAttribute('material', { color: 'red' });
+          entity.setAttribute('gps-new-entity-place', {
+            latitude: e.detail.position.latitude + 0.001,
+            longitude: e.detail.position.longitude
+          });
+          document.querySelector("a-scene").appendChild(entity);
+          testEntityAdded = true;
+        }
+      });
+    };
+  </script>
+</body>
 </html>
