@@ -29,5 +29,13 @@
         <a-text value="waiting for GPS..." gps-entity-place latitude="0" longitude="0"></a-text>
 
         <a-camera gps-camera rotation-reader></a-camera>
+
+        <script>
+            document.querySelector('[gps-camera]').addEventListener('gps-camera-update-position', (e) => {
+              const lat = e.detail.position.latitude;
+              const lon = e.detail.position.longitude;
+              document.querySelector('#gpsText').setAttribute('value', `Lat: ${lat}\nLon: ${lon}`);
+            });
+        </script>
 	</a-scene>
 </body>
