@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR.js Location-Based Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft-location.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; gpsMinAccuracy: 100; debugUIEnabled: false;"
+    >
+      <!-- 使用者位置 -->
+      <a-camera gps-camera rotation-reader></a-camera>
+
+      <!-- 基於地點的 3D 物件 -->
+      <a-box
+        color="red"
+        depth="1"
+        height="1"
+        width="1"
+        position="0 1 0"
+        gps-entity-place="latitude: 22.650276; longitude: 120.341321"
+      >
+        <a-text
+          value="這裡是台北101！"
+          look-at="[gps-camera]"
+          scale="10 10 10"
+          position="0 2 0"
+        ></a-text>
+      </a-box>
+    </a-scene>
+  </body>
+</html>
