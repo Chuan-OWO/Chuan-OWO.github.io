@@ -18,5 +18,14 @@
         position="0 0 0"
       ></a-box>
     </a-scene>
+    <script>
+        window.addEventListener('gps-entity-place-added', function (ev) {
+          console.log('模型已綁定地理位置', ev.detail);
+        });
+      
+        window.addEventListener('gps-camera-update-position', function (ev) {
+          console.log('目前位置:', ev.detail.position);
+        });
+      </script>
   </body>
 </html>
