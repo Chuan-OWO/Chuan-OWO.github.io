@@ -22,24 +22,12 @@
             gltf-model="./assets/magnemite/scene.gltf" 
             rotation="0 180 0" 
             scale="0.15 0.15 0.15" 
-            gps-entity-place="latitude: 0; longitude: 0;"
+            gps-entity-place="latitude: 22.650450; longitude: 120.341423; maxDistance: 0.5"
             animation-mixer
         />
 
-        <!-- <a-text value="waiting for GPS..." gps-entity-place latitude="0" longitude="0"></a-text> -->
-        <a-text id="gpsText" value="Waiting for GPS..." position="0 2 -3" color="black"></a-text>
+        <a-text value="waiting for GPS..." gps-entity-place latitude="0" longitude="0"></a-text>
 
-        <a-camera gps-camera rotation-reader></a-camera>
-
-        <script>
-            document.querySelector('[gps-camera]').addEventListener('gps-camera-update-position', function (e) {
-                const lat = e.detail.position.latitude;
-                const lon = e.detail.position.longitude;
-            
-                // 將經緯度顯示在畫面上的 <a-text>
-                const gpsText = document.querySelector('#gpsText');
-                gpsText.setAttribute('value', `目前定位：\n緯度: ${lat.toFixed(6)}\n經度: ${lon.toFixed(6)}`);
-            });
-        </script>
+        <a-camera gps-camera="alert: true positionMinAccuracy: 50" rotation-reader></a-camera>
 	</a-scene>
 </body>
