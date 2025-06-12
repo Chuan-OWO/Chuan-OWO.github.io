@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AR.js GPS 測試範例</title>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <!-- 模型：目標位置 -->
+      <a-entity
+        id="model"
+        gltf-model="./assets/magnemite/scene.gltf"
+        gps-entity-place="latitude: 22.650450; longitude: 120.341423; maxDistance: 100"
+        scale="0.15 0.15 0.15"
+        rotation="0 180 0"
+        animation-mixer
+      ></a-entity>
+
+      <!-- 顯示 GPS 資訊 -->
+      <a-text
+        id="gpsInfo"
+        value="等候 GPS..."
+        position="0 2 -3"
+        color="black"
+      ></a-text>
+
+      <!-- 相機 + 模擬座標 -->
+      <a-camera
+        gps-camera="simulateLatitude: 22.650000; simulateLongitude: 120.340000; positionMinAccuracy: 50; alert: true"
+        rotation-reader
+      ></a-camera>
+    </a-scene>
+
+    <script>
+      const gpsText = document.querySelector('#gpsInfo');
+      const targetLat = 22.650450;
+      const targetLon = 120.341423;
+
+      // 計算兩點距離的函數
+      function getDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371e3;
+        const toRad = deg => deg * Math.PI / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                  Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                  Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+      }
+
+      // 當定位更新時顯示資訊
+      document.querySelector('[gps-camera]').addEventListener('gps-camera-update-position', function (e) {
+        const lat = e.detail.position.latitude;
+        const lon = e.detail.position.longitude;
+        const accuracy = e.detail.position.accuracy;
+        const dist = getDistance(lat, lon, targetLat, targetLon).toFixed(2);
+
+        gpsText.setAttribute('value',
+          `目前位置：\n緯度: ${lat.toFixed(6)}\n經度: ${lon.toFixed(6)}\n誤差: ±${accuracy.toFixed(1)} 公尺\n距離模型: ${dist} 公尺`);
+      });
+    </script>
+  </body>
+</html>
