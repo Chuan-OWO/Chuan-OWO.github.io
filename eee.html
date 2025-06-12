@@ -26,15 +26,19 @@
             animation-mixer
         />
 
-        <a-text value="waiting for GPS..." gps-entity-place latitude="0" longitude="0"></a-text>
+        <!-- <a-text value="waiting for GPS..." gps-entity-place latitude="0" longitude="0"></a-text> -->
+        <a-text id="gpsText" value="Waiting for GPS..." position="0 2 -3" color="black"></a-text>
 
         <a-camera gps-camera rotation-reader></a-camera>
 
         <script>
-            document.querySelector('[gps-camera]').addEventListener('gps-camera-update-position', (e) => {
-              const lat = e.detail.position.latitude;
-              const lon = e.detail.position.longitude;
-              document.querySelector('#gpsText').setAttribute('value', `Lat: ${lat}\nLon: ${lon}`);
+            document.querySelector('[gps-camera]').addEventListener('gps-camera-update-position', function (e) {
+                const lat = e.detail.position.latitude;
+                const lon = e.detail.position.longitude;
+            
+                // 將經緯度顯示在畫面上的 <a-text>
+                const gpsText = document.querySelector('#gpsText');
+                gpsText.setAttribute('value', `目前定位：\n緯度: ${lat.toFixed(6)}\n經度: ${lon.toFixed(6)}`);
             });
         </script>
 	</a-scene>
