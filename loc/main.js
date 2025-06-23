@@ -1,5 +1,7 @@
-import * as THREE from 'three';
-import * as LocAR from 'locar';
+// import * as THREE from 'three';
+// import * as LocAR from 'locar';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as LocAR from 'https://unpkg.com/locar@latest/dist/locar.module.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.001, 100);
