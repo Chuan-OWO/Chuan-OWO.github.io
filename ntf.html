@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Image based tracking AR.js demo</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- 引入 A-Frame 庫，用來建立 3D/VR/AR 的 HTML 元素。 -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-
+    <!-- 引入 AR.js 針對 A-Frame 的 NFT（Natural Feature Tracking，自然特徵追踪）支援。 -->
     <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <!-- 載入更多 glTF 模型支援（如動畫、碰撞等）的工具包。 -->
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-
+    <!-- 引入手勢偵測器與控制器，讓你可以拖曳/旋轉 3D 模型。 -->
     <style>
       .arjs-loader {
         height: 100%;
@@ -32,28 +34,40 @@
       }
     </style>
   </head>
-
-  <body style="margin : 0px; overflow: hidden;">
+  
+  <body style="margin : 0px; overflow: hidden;">      <!-- 移除網頁預設邊距，並隱藏滾動條。 -->
 
     <div class="arjs-loader">
       <div>Loading, please wait...</div>
     </div>
-
         <a-scene
             vr-mode-ui="enabled: false;"
             renderer="logarithmicDepthBuffer: true;"
-            embedded
+            embedded 
             arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
             gesture-detector
         >
-
+        <!-- 
+          vr-mode-ui="enabled: false;"：關閉 VR 模式的按鈕。
+          renderer="logarithmicDepthBuffer: true;"：避免深度精度問題，讓 3D 模型渲染更穩定。
+          embedded：內嵌模式，畫面會貼合在網頁中，而不是全螢幕。
+          arjs：
+              trackingMethod: best;：選用最佳的追蹤方式（會選擇支援度最高的）。
+              sourceType: webcam;：使用裝置攝影機當作輸入來源。
+              debugUIEnabled: false;：關閉除錯畫面。
+          gesture-detector：開啟手勢偵測功能。 
+        -->
         <a-assets>
+          <!-- 預先載入 3D 模型 -->
             <a-asset-item
                 id="animated-asset"
                 src="assets/asset.glb"
             ></a-asset-item>
+          <!-- 用這個 ID 引用 -->
         </a-assets>
 
+
+        <!-- a-nft 是 AR.js 提供的標籤，用來偵測 NFT 影像（自然特徵） -->
         <a-nft
             type="nft"
             url="./nft/fem"
@@ -62,18 +76,45 @@
             smoothTolerance=".01"
             smoothThreshold="5"
         >
+        <!-- 
+          type="nft"：標明使用自然特徵追蹤。
+          url="./nft/fem"：指向 NFT 的檔案目錄（應包含 fem.fset, fem.fset3, fem.iset）。
+          smooth="true"：啟用平滑追蹤，減少模型抖動。
+          smoothCount="10"：使用前 10 個追蹤位置平均。
+          smoothTolerance=".01"：平滑變動的容差。
+          smoothThreshold="5"：超過這個距離才會更新平滑值。 
+        -->
             <a-entity 
-                scale="20 20 20"
+                scale="200 200 200"
                 position="0 0 0"
                 animation-mixer="loop: repeat"
                 gltf-model="#animated-asset"
                 gesture-handler
             ></a-entity>
+            <!-- 
+              a-entity 是 A-Frame 的萬用 3D 元素。
+              scale="20 20 20"：放大模型。
+              position="0 0 0"：定位在 NFT 中心。
+              animation-mixer="loop: repeat"：讓 glTF 模型中的動畫持續播放。
+              gltf-model="#animated-asset"：使用之前載入的 glTF 模型。
+              gesture-handler：啟用手勢互動（如旋轉、縮放）。 
+            -->
+
+            <!-- box -->
+            <a-box position="0 0.5 0"
+                  rotation="0 45 0"
+                  color="orange"
+                  animation="property: rotation; to: 0 405 0; loop: true; dur: 3000">
+            </a-box>
+            <!-- 
+              position	位置 XYZ 三個軸的座標，單位為公尺
+              rotation	旋轉角度（X Y Z）
+              材質顏色為紅色 
+            -->
         </a-nft>
         <a-entity camera ></a-entity>
+        <!-- 放入一個 A-Frame 的相機元件，讓使用者能看到 AR 場景 -->
     </a-scene>
   </body>
 </html>
 
-
-<!-- scale="0.03295687896304461 0.03295687896304461 0.03295687896304461" -->
