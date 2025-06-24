@@ -56,7 +56,12 @@
                     gesture-handler
                 ></a-entity>
 
-                <a-box src="#texture"></a-box>
+                <a-box 
+                    src="#texture"
+                    position="0 5 0"
+                    rotation="0 45 0"
+                    animation="property: rotation; to: 0 405 0; loop: true; dur: 3000"
+                ></a-box>
             </a-marker>
 
             <a-marker
