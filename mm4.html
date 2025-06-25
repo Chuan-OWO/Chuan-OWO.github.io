@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+        "mindar-face-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-three.prod.js"
+      }
+    }
+    </script>
+    <script type="module">
+      import * as THREE from 'three';
+      import { MindARThree } from 'mindar-face-three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+      const mindarThree = new MindARThree({
+        container: document.querySelector("#container"),
+      });
+      const { renderer, scene, camera } = mindarThree;
+
+      const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+      scene.add(light);
+
+      const faceMesh = mindarThree.addFaceMesh();
+      scene.add(faceMesh);
+
+      const loader = new GLTFLoader();
+
+      const masks = [
+        {
+          name: "未來頭盔",
+          url: "https://models.babylonjs.com/DamagedHelmet/glTF/DamagedHelmet.gltf"
+        },
+        {
+          name: "狐狸面具",
+          url: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/Fox/glTF/Fox.gltf"
+        },
+        {
+          name: "原始面具",
+          url: "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@master/examples/face-tracking/assets/face-mask/face_mask.gltf"
+        }
+      ];
+
+      let currentModel = null;
+      let maskIndex = 0;
+
+      const loadMask = (index) => {
+        if (currentModel) {
+          faceMesh.remove(currentModel);
+          currentModel = null;
+        }
+        loader.load(masks[index].url, (gltf) => {
+          const model = gltf.scene;
+          model.scale.set(1.5, 1.5, 1.5);
+          currentModel = model;
+          faceMesh.add(model);
+        });
+      };
+
+      document.getElementById("change-mask").addEventListener("click", () => {
+        maskIndex = (maskIndex + 1) % masks.length;
+        loadMask(maskIndex);
+      });
+
+      const start = async () => {
+        await mindarThree.start();
+        renderer.setAnimationLoop(() => {
+          renderer.render(scene, camera);
+        });
+        loadMask(maskIndex); // 載入初始面具
+      };
+      start();
+    </script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      #container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+      }
+      #change-mask {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #ffffffcc;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <button id="change-mask">切換面具</button>
+    </div>
+  </body>
+</html>
