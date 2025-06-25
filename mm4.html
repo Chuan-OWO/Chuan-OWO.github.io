@@ -19,7 +19,7 @@
         container: document.querySelector("#container"),
       });
       const { renderer, scene, camera } = mindarThree;
-      renderer.outputColorSpace = THREE.SRGBColorSparce;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       scene.add(light);
 
@@ -27,11 +27,11 @@
       scene.add(faceMesh);
 
       const loader = new GLTFLoader();
-
+      
       const masks = [
         {
-            name: "未來頭盔",
-            url: "https://models.babylonjs.com/DamagedHelmet/glTF/DamagedHelmet.gltf"
+            name: "joker_mask",
+            url: "https://chuan-owo.github.io/assets/joker_mask.glb"
         },
         {
           name: "mask",
