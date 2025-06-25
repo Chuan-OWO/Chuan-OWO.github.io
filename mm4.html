@@ -63,6 +63,7 @@
       };
 
       document.getElementById("change-mask").addEventListener("click", () => {
+        console.log("masks.length =",masks.length)
         maskIndex = (maskIndex + 1) % masks.length;
         console.log("maskIndex ",maskIndex)
         loadMask(maskIndex);
