@@ -27,7 +27,7 @@
       scene.add(faceMesh);
 
       const loader = new GLTFLoader();
-      
+
       const masks = [
         {
             name: "joker_mask",
@@ -64,6 +64,7 @@
 
       document.getElementById("change-mask").addEventListener("click", () => {
         maskIndex = (maskIndex + 1) % masks.length;
+        console.log("maskIndex ",maskIndex)
         loadMask(maskIndex);
       });
 
