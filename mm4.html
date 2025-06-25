@@ -19,7 +19,7 @@
         container: document.querySelector("#container"),
       });
       const { renderer, scene, camera } = mindarThree;
-
+      renderer.outputColorSpace = THREE.SRGBColorSparce;
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       scene.add(light);
 
@@ -30,8 +30,8 @@
 
       const masks = [
         {
-          name: "狐狸面具",
-          url: "https://chuan-owo.github.io/mindar/face_tracking/pelo.png"
+          name: "mask",
+          url: "https://chuan-owo.github.io/assets/mask.glb"
         },
         {
           name: "原始面具",
