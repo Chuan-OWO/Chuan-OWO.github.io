@@ -35,7 +35,7 @@
         },
         {
           name: "狐狸面具",
-          url: "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/Fox/glTF/Fox.gltf"
+          url: "https://chuan-owo.github.io/mindar/face_tracking/pelo.png"
         },
         {
           name: "原始面具",
@@ -48,9 +48,16 @@
 
       const loadMask = (index) => {
         if (currentModel) {
-          faceMesh.remove(currentModel);
-          currentModel = null;
-        }
+            currentModel.traverse((child) => {
+              if (child.isMesh) {
+                child.geometry.dispose();
+                if (child.material.map) child.material.map.dispose();
+                child.material.dispose();
+              }
+            });
+            faceMesh.remove(currentModel);
+            currentModel = null;
+          }
         loader.load(masks[index].url, (gltf) => {
           const model = gltf.scene;
           model.scale.set(1.5, 1.5, 1.5);
