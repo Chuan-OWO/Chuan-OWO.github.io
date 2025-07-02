@@ -13,26 +13,26 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     <!-- 引入手勢偵測器與控制器，讓你可以拖曳/旋轉 3D 模型。 -->
-    <style>
-      .arjs-loader {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+      <style>
+        .arjs-loader {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.8);
+          z-index: 9999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
-      .arjs-loader div {
-        text-align: center;
-        font-size: 1.25em;
-        color: white;
-      }
-    </style>
+        .arjs-loader div {
+          text-align: center;
+          font-size: 1.25em;
+          color: white;
+        }
+      </style>
   </head>
   
   <body style="margin : 0px; overflow: hidden;">      <!-- 移除網頁預設邊距，並隱藏滾動條。 -->
@@ -55,7 +55,7 @@
               trackingMethod: best;：選用最佳的追蹤方式（會選擇支援度最高的）。
               sourceType: webcam;：使用裝置攝影機當作輸入來源。
               debugUIEnabled: false;：關閉除錯畫面。
-          gesture-detector：開啟手勢偵測功能。 
+              gesture-detector：開啟手勢偵測功能。 
         -->
         <a-assets>
           <!-- 預先載入 3D 模型 -->
@@ -108,7 +108,7 @@
             </a-box>
             <!-- 
               position	位置 XYZ 三個軸的座標，單位為公尺
-              rotation	旋轉角度（X Y Z）
+              rotation	旋轉角度 （X Y Z）
               材質顏色為紅色 
             -->
         </a-nft>
